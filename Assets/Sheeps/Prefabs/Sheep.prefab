@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 9135156147529809506}
   - component: {fileID: 3094140506852487652}
   - component: {fileID: 1034313937531317964}
+  - component: {fileID: 795960968642527938}
   m_Layer: 7
   m_Name: FX
   m_TagString: Untagged
@@ -4936,6 +4937,53 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &795960968642527938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775377809734220987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157f302d102ddf34faebdcce6c59e84d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.StateEventWrapper
+  state: {fileID: 6692025713903613633}
+  data: {fileID: 0}
+  OnActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3094140506852487652}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeactivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3094140506852487652}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  checkOnStart: 1
+  checkOnEnable: 0
+  onlyCheckOnce: 0
 --- !u!1 &793482117628302511
 GameObject:
   m_ObjectHideFlags: 0
