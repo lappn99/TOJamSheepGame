@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class DrawGraphic : Graphic
+public class DrawGraphic : MaskableGraphic
 {
 
     private struct GraphicPoint
@@ -25,8 +25,9 @@ public class DrawGraphic : Graphic
     [SerializeField] private float snapDistance = 10f;
     [SerializeField] private float brushSize = 10.0f;
     [SerializeField] private float fadeTime = 3.0f;
-    [SerializeField] private EdgeCollider2D fenceCollider;
+    [SerializeField] private Fence fence;
     [SerializeField] private LayerMask mask;
+    [SerializeField] private Color color;
     
 
     private Vector2 _localRectPosition;
@@ -75,7 +76,7 @@ public class DrawGraphic : Graphic
                     contactFilter2D.useLayerMask = true;
 
                     List<Collider2D> overlaps = new List<Collider2D>();
-                    Physics2D.OverlapArea(fenceCollider.bounds.min, fenceCollider.bounds.max, contactFilter2D,
+                    Physics2D.OverlapArea(fence.EdgeCollider.bounds.min, fence.EdgeCollider.bounds.max, contactFilter2D,
                         overlaps);
                     _canvasGroup.DOFade(0.0f, fadeTime).onComplete += () =>
                     {
@@ -111,13 +112,18 @@ public class DrawGraphic : Graphic
 
     private void UpdateFencePoints()
     {   
-        fenceCollider.points = _points.Select((graphicPoint =>
+        
+        
+        var worldPoints = _points.Select((graphicPoint =>
         {
                     
-            var worldPosition =  fenceCollider.transform.InverseTransformPoint(
+            var worldPosition =  fence.transform.InverseTransformPoint(
                 Camera.main.ScreenToWorldPoint(graphicPoint.MousePosition));
             return new Vector2(worldPosition.x, worldPosition.y);
         })).ToArray();
+
+        fence.EdgeCollider.points = worldPoints;
+        fence.UpdateFence(worldPoints.Select(v2 => new Vector3(v2.x, v2.y)).ToArray());
     }
 
     private (Vector2, Vector2, Vector2, Vector2) QuadVerticesAroundPoint(Vector2 point)
@@ -161,13 +167,13 @@ public class DrawGraphic : Graphic
             return;
         }
 
-        Color32 color = Color.white;
+        Color32 color = this.color;
         var halfWidth = brushSize / 2.0f;
         for (var i = 0; i < _points.Count; i++)
         {
             var currentPoint = _points[i];
             var points = QuadVerticesAroundPoint(currentPoint.RectPosition);
-            AddQuad(ref vh, color, points.Item1, points.Item2, points.Item3, points.Item4);
+            //AddQuad(ref vh, color, points.Item1, points.Item2, points.Item3, points.Item4);
             if (i > 0 )
             {
                 var previousPoint = _points[i - 1];

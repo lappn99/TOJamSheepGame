@@ -71,11 +71,11 @@ namespace Sheeps.Abilities
                 var targetPosition = transform.position + _moveDirection * moveDistance;
                 if (Vector3.Dot(transform.right, _moveDirection) < 0)
                 {
-                    _spriteRenderer.flipX = false;
+                    Actor.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
                 }
                 else
                 {
-                    _spriteRenderer.flipX = true;
+                    Actor.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
                 
                 
