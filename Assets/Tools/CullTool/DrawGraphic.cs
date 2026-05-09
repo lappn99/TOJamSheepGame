@@ -1,25 +1,45 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class DrawGraphic : Graphic
+[RequireComponent(typeof(CanvasGroup))]
+public class DrawGraphic : MaskableGraphic
 {
-    private List<Vector2> _points = new List<Vector2>();
+
+    private struct GraphicPoint
+    {
+        public Vector2 MousePosition { get; set; }
+        public Vector2 RectPosition { get; set; }
+    }
+    
+    private const int MAX_POINTS = 4;
+    
+    private List<GraphicPoint> _points = new List<GraphicPoint>();
     [SerializeField] private int sampleFrequency = 10;
-    private int _lastSample;
+    [SerializeField] private float snapDistance = 10f;
     [SerializeField] private float brushSize = 10.0f;
+    [SerializeField] private float fadeTime = 3.0f;
+    [SerializeField] private Fence fence;
+    [SerializeField] private LayerMask mask;
+    [SerializeField] private Color color;
+    
 
-
-    private Vector2 _localMousePoint;
+    private Vector2 _localRectPosition;
+    private int _lastSample;
+    private CanvasGroup _canvasGroup;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _lastSample = Time.frameCount;
         _points.Clear();
+        _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -31,13 +51,79 @@ public class DrawGraphic : Graphic
     public void PlacePoint()
     {
         RectTransform canvasRect = GetComponent<RectTransform>();
-        bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Mouse.current.position.ReadValue(), null,
-            out _localMousePoint);
+        var mousePoint = Mouse.current.position.ReadValue();
+        
+        bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, mousePoint, null,
+            out _localRectPosition);
+        GraphicPoint point = new GraphicPoint
+        {
+            MousePosition = mousePoint,
+            RectPosition = _localRectPosition
+            
+        };
         if (isInside)
         {
+            if (_points.Count >= MAX_POINTS)
+            {
+                if (Vector2.Distance(_localRectPosition, _points[0].RectPosition) <= snapDistance)
+                {
+                    _points.Add(_points[0]);
+                    
+                    
+                    UpdateFencePoints();
+                    ContactFilter2D contactFilter2D = new ContactFilter2D();
+                    contactFilter2D.layerMask = mask;
+                    contactFilter2D.useLayerMask = true;
+
+                    List<Collider2D> overlaps = new List<Collider2D>();
+                    Physics2D.OverlapArea(fence.EdgeCollider.bounds.min, fence.EdgeCollider.bounds.max, contactFilter2D,
+                        overlaps);
+                    _canvasGroup.DOFade(0.0f, fadeTime).onComplete += () =>
+                    {
+                        _points.Clear();
+                        SetVerticesDirty();
+                        _canvasGroup.alpha = 1.0f;
+                        UpdateFencePoints();
+                        foreach (var overlap in overlaps)
+                        {
+                            Destroy(overlap.gameObject);
+                        }
+                        
+                        
+                    };
+                }
+                else
+                {
+                    _points.Clear();
+                    UpdateFencePoints();
+                }
+            }
+            else
+            {
+                _points.Add(point);
+                UpdateFencePoints();
+               
+            }
+            
+            
             SetVerticesDirty();
-            _points.Add(_localMousePoint);
         }
+    }
+
+    private void UpdateFencePoints()
+    {   
+        
+        
+        var worldPoints = _points.Select((graphicPoint =>
+        {
+                    
+            var worldPosition =  fence.transform.InverseTransformPoint(
+                Camera.main.ScreenToWorldPoint(graphicPoint.MousePosition));
+            return new Vector2(worldPosition.x, worldPosition.y);
+        })).ToArray();
+
+        fence.EdgeCollider.points = worldPoints;
+        fence.UpdateFence(worldPoints.Select(v2 => new Vector3(v2.x, v2.y)).ToArray());
     }
 
     private (Vector2, Vector2, Vector2, Vector2) QuadVerticesAroundPoint(Vector2 point)
@@ -81,17 +167,17 @@ public class DrawGraphic : Graphic
             return;
         }
 
-        Color32 color = Color.white;
+        Color32 color = this.color;
         var halfWidth = brushSize / 2.0f;
         for (var i = 0; i < _points.Count; i++)
         {
             var currentPoint = _points[i];
-            var points = QuadVerticesAroundPoint(currentPoint);
-            AddQuad(ref vh, color, points.Item1, points.Item2, points.Item3, points.Item4);
+            var points = QuadVerticesAroundPoint(currentPoint.RectPosition);
+            //AddQuad(ref vh, color, points.Item1, points.Item2, points.Item3, points.Item4);
             if (i > 0 )
             {
                 var previousPoint = _points[i - 1];
-                var line = currentPoint - previousPoint;
+                var line = currentPoint.RectPosition - previousPoint.RectPosition;
                 float angle = Mathf.Atan2(line.y, line.x) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
                 
@@ -100,7 +186,7 @@ public class DrawGraphic : Graphic
                 for (int j = 0; j < numQuads; j++)
                 {
 
-                    var spawnPoint = previousPoint + line.normalized * (j * brushSize);
+                    var spawnPoint = previousPoint .RectPosition+ line.normalized * (j * brushSize);
 
                     (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4) = QuadVerticesAroundPoint(spawnPoint);
                     AddQuad(ref vh, color, v1, v2, v3, v4, rotation, spawnPoint);
