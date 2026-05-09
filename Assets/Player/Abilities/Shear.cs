@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Shear : ToolAbility
 {
-    
-    
-    
+    protected override bool SheepFilter(Sheep sheep)
+    {
+        return !sheep.IsShaved;
+
+    }
 
     public override void UpdateAbility()
     {

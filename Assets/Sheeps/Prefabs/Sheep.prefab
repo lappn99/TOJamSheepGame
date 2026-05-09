@@ -5378,6 +5378,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7580751907270432838}
   - component: {fileID: 5202080046071102023}
+  - component: {fileID: 6412127134895657140}
+  - component: {fileID: 6397639535804140126}
   m_Layer: 7
   m_Name: Infected
   m_TagString: Untagged
@@ -5397,7 +5399,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1196281506434382022}
   m_Father: {fileID: 1986183460601914785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5202080046071102023
@@ -5413,6 +5416,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Infected
   state: {fileID: 6692025713903613633}
+--- !u!114 &6412127134895657140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311318750242945782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db7fbd75073d545687b495bc0125d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveAbilityState
+  ability: {fileID: 5202080046071102023}
+--- !u!114 &6397639535804140126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311318750242945782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3d286530b7fc14e8736d8ea1550196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.GameObjectStateTracker
+  activeState: {fileID: 6412127134895657140}
+  trackedObjects:
+  - {fileID: 5171125600850015210}
+  trackedBehaviours: []
 --- !u!1 &2643370990088859245
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,8 +5720,55 @@ Transform:
   - {fileID: 4387999821920391413}
   - {fileID: 4984912110879394882}
   - {fileID: 4924052802124643445}
+  - {fileID: 9559508271507728}
+  - {fileID: 7969989136568560895}
   m_Father: {fileID: 3458137505394951274}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4917963485323202159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4527603315890949201}
+  - component: {fileID: 8892045061116453291}
+  m_Layer: 7
+  m_Name: Not Infected
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4527603315890949201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917963485323202159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4888746691249951517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8892045061116453291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917963485323202159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55688183cd10aa8459fb319bb59ff283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.NotState
+  state: {fileID: 6692025713903613633}
 --- !u!1 &4922098863769749128
 GameObject:
   m_ObjectHideFlags: 0
@@ -5781,6 +5860,137 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &5083049387831437076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7969989136568560895}
+  - component: {fileID: 436630778095236019}
+  m_Layer: 7
+  m_Name: Can Be Shaved
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7969989136568560895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5083049387831437076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5195980685955840673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436630778095236019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5083049387831437076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9c1103f522df14893eb59cb2be1a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.GroupState
+  any: 0
+  states:
+  - {fileID: 1444944754260629704}
+  - {fileID: 8892045061116453291}
+--- !u!1 &5171125600850015210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196281506434382022}
+  - component: {fileID: 8737320738215265930}
+  - component: {fileID: 720236774133512118}
+  m_Layer: 7
+  m_Name: Infector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1196281506434382022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5171125600850015210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7580751907270432838}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8737320738215265930
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5171125600850015210}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1.25
+--- !u!114 &720236774133512118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5171125600850015210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9719f8d98e8f9599040b7bae26695a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Infector
+  infectChance: 0.1
+  tryInfectRate: 1
 --- !u!1 &5406360900286666284
 GameObject:
   m_ObjectHideFlags: 0
@@ -5867,7 +6077,10 @@ MonoBehaviour:
         m_CallState: 2
   shearState: {fileID: 4100176161822809436}
   breedState: {fileID: 2051381575197718941}
+  infectState: {fileID: 6692025713903613633}
   canBreedState: {fileID: 5026755944664990068}
+  canBeInfectedState: {fileID: 4720852440374993530}
+  canBeShavedState: {fileID: 436630778095236019}
   babySheepPrefab: {fileID: 5406360900286666284}
   spawnDistance: 1
 --- !u!50 &9175882352166134357
@@ -6226,7 +6439,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4527603315890949201}
   m_Father: {fileID: 5195980685955840673}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6692025713903613633
@@ -6336,6 +6550,7 @@ MonoBehaviour:
   states:
   - {fileID: 1444944754260629704}
   - {fileID: 2525592168099439729}
+  - {fileID: 8892045061116453291}
 --- !u!1 &7002871980574766818
 GameObject:
   m_ObjectHideFlags: 0
@@ -6890,6 +7105,53 @@ MonoBehaviour:
   actor: {fileID: 5406360900286666284}
   animatorLayer: 0
   animator: {fileID: 599853663719132305}
+--- !u!1 &8545630342958328115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9559508271507728}
+  - component: {fileID: 4720852440374993530}
+  m_Layer: 7
+  m_Name: Can Be Infected
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9559508271507728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545630342958328115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5195980685955840673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4720852440374993530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545630342958328115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9c1103f522df14893eb59cb2be1a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.GroupState
+  any: 0
+  states:
+  - {fileID: 1444944754260629704}
 --- !u!1 &8559841564522027544
 GameObject:
   m_ObjectHideFlags: 0

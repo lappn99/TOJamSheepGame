@@ -12,9 +12,15 @@ public class Sheep : MonoBehaviour
 
     [SerializeField] private VirtualState shearState;
     [SerializeField] private VirtualState breedState;
+    [SerializeField] private VirtualState infectState;
+    
 
     [SerializeField, PropertyInterface(typeof(IState))]
     private UnityEngine.Object canBreedState;
+    [SerializeField, PropertyInterface(typeof(IState))] private UnityEngine.Object canBeInfectedState;
+
+    [SerializeField, PropertyInterface(typeof(IState))]
+    private UnityEngine.Object canBeShavedState;
     
     [SerializeField] private GameObject babySheepPrefab;
 
@@ -25,6 +31,12 @@ public class Sheep : MonoBehaviour
     public Rigidbody2D  RigidBody => _rb;
 
     private IState CanBreedState => canBreedState as IState;
+    
+    private IState CanBeInfectedState => canBeInfectedState as IState;
+    private IState CanBeShavedState => canBeShavedState as IState;
+
+    public bool IsShaved => shearState.Activated;
+    public bool IsFed => breedState.Activated;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,7 +62,11 @@ public class Sheep : MonoBehaviour
 
     public void Shear()
     {
-        shearState.activated = true;
+        if (CanBeShavedState.Activated)
+        {
+            
+            shearState.activated = true;
+        }
     }
 
     public void Breed()
@@ -72,5 +88,14 @@ public class Sheep : MonoBehaviour
 
 
 
+    }
+
+    public void Infect()
+    {
+        if (CanBeInfectedState.Activated)
+        {
+            
+            infectState.activated = true;
+        }
     }
 }

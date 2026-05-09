@@ -34,6 +34,7 @@ public class DrawGraphic : MaskableGraphic
     [FormerlySerializedAs("previewGoodPreview")] [SerializeField] private Color previewGoodColor = Color.green;
     [SerializeField] private Color previewBadColor = Color.red;
     [SerializeField] private float maxDistance = 200.0f;
+    [SerializeField] private LayerMask obstacleMask;
 
     private bool _showPreview;
     private GraphicPoint _currentPoint;
@@ -101,7 +102,7 @@ public class DrawGraphic : MaskableGraphic
                 fence.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(endPoint.MousePosition));
             var worldDirection = endWorldPosition - startWorldPosition;
             var intesection = Physics2D.Raycast(startWorldPosition + worldDirection.normalized * 0.5f, worldDirection.normalized,
-                Vector2.Distance(startWorldPosition + worldDirection.normalized * 0.5f, endWorldPosition));
+                Vector2.Distance(startWorldPosition + worldDirection.normalized * 0.5f, endWorldPosition), obstacleMask.value);
             _pointGood = !intesection.collider;
         }
     }

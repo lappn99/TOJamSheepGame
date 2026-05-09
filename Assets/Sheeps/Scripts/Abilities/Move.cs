@@ -119,7 +119,6 @@ namespace Sheeps.Abilities
             animator.SetBool("Moving", false);
             if (_moveTween is { active: true })
             {
-                print("Stop movement");
                 _moveTween.Kill();
             }
         }
