@@ -94,7 +94,7 @@ public class DrawGraphic : Graphic
                 var line = currentPoint - previousPoint;
                 float angle = Mathf.Atan2(line.y, line.x) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-                print(angle);
+                
                 var numQuads = Mathf.RoundToInt( line.magnitude / brushSize);
                 
                 for (int j = 0; j < numQuads; j++)
