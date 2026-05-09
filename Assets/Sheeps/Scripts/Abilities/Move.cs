@@ -21,6 +21,8 @@ namespace Sheeps.Abilities
         [SerializeField] private LayerMask obstacleMask;
         [SerializeField] private Transform castOrigin;
 
+        private Tween _moveTween;
+
         private bool _move;
 
         private Vector3 _moveDirection;
@@ -97,16 +99,32 @@ namespace Sheeps.Abilities
                 Actor.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
 
-
-            yield return _rb.DOMove(targetPosition, moveDistance / moveSpeed).SetEase(movementEase).onComplete +=
-                StopAbility;
+            
+            _moveTween = _rb.DOMove(targetPosition, moveDistance / moveSpeed).SetEase(movementEase);
+            
+            _moveTween.onComplete += () =>
+            {
+                _move = false;
+            };
 
         }
 
         public override void StopAbility()
         {
+            
             base.StopAbility();
             _move = false;
+            print("Stop");
+            if (_moveTween is { active: true })
+            {
+                print("Stop movement");
+                _moveTween.Kill();
+            }
+        }
+
+        public void SetCanMove(bool move)
+        {
+            allowMovement = move;
         }
 
         public bool Activated

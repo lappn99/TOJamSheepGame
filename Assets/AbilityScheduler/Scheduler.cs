@@ -48,10 +48,7 @@ namespace AbilityScheduler
             
             void ProcessAbility(AbstractAbility current)
             {
-                if (_currentAbility && current.IsAbilityRunning && current != nextAbility)
-                {
-                    current.StopAbility();
-                }
+               
 
                 if (!current.State.Activated)
                 {

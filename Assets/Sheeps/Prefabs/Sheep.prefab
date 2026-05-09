@@ -582,7 +582,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3458137505394951274}
-  - component: {fileID: 5257671374980262854}
   - component: {fileID: 1937072547591007450}
   - component: {fileID: 9175882352166134357}
   - component: {fileID: 3584711116931022165}
@@ -601,7 +600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5406360900286666284}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.22, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -611,21 +610,6 @@ Transform:
   - {fileID: 3073702711071062847}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5257671374980262854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5406360900286666284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ad2d5bab8d7902d8260f58cf46f21f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AbilityScheduler.Scheduler
-  rootAbilites:
-  - {fileID: 7775545596143823596}
-  actor: {fileID: 5406360900286666284}
 --- !u!114 &1937072547591007450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +622,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f0fad5bfd06e6e181a492242f5a23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sheep
+  mouseEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7775545596143823596}
+        m_TargetAssemblyTypeName: Sheeps.Abilities.Move, Assembly-CSharp
+        m_MethodName: set_AllowMovement
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  mouseExited:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7775545596143823596}
+        m_TargetAssemblyTypeName: Sheeps.Abilities.Move, Assembly-CSharp
+        m_MethodName: set_AllowMovement
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!50 &9175882352166134357
 Rigidbody2D:
   serializedVersion: 5

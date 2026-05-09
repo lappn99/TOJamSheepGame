@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ISL.StateSystem.Runtime;
 using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
 using UnityEngine;
@@ -28,11 +29,13 @@ public class DrawGraphic : MaskableGraphic
     [SerializeField] private Fence fence;
     [SerializeField] private LayerMask mask;
     [SerializeField] private Color color;
+    [SerializeField, PropertyInterface(typeof(IState))] private UnityEngine.Object activeState;
     
 
     private Vector2 _localRectPosition;
     private int _lastSample;
     private CanvasGroup _canvasGroup;
+    private IState ActiveState => activeState as IState;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,6 +53,10 @@ public class DrawGraphic : MaskableGraphic
 
     public void PlacePoint()
     {
+        if (!ActiveState.Activated)
+        {
+            return;
+        }
         RectTransform canvasRect = GetComponent<RectTransform>();
         var mousePoint = Mouse.current.position.ReadValue();
         
@@ -201,4 +208,6 @@ public class DrawGraphic : MaskableGraphic
         //vh.FillMesh();
 
     }
+    
+    
 }

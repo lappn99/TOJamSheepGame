@@ -16,6 +16,8 @@ public class ToolBarManager : MonoBehaviour
 
     private List<Button> buttons = new();
 
+    public Tool CurrentTool { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +36,7 @@ public class ToolBarManager : MonoBehaviour
 
     public void ChangeTool(int ToolIndex)
     {
+        CurrentTool = (Tool)ToolIndex;
         OnToolChange.Invoke((Tool)ToolIndex);
         foreach (Button button in buttons)
             button.GetComponent<Animator>().SetBool("Current",false);
