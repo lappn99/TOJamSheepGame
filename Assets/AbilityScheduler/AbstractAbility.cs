@@ -11,6 +11,8 @@ namespace AbilityScheduler
         private UnityEngine.Object state;
         
         protected float StartTime { get; private set; }
+        
+        protected float StopTime { get; private set; }
         public bool IsAbilityRunning { get; private set; }
 
         public GameObject Actor { get; set; }
@@ -31,6 +33,7 @@ namespace AbilityScheduler
 
         public virtual void StopAbility()
         {
+            StopTime = Time.time;
             IsAbilityRunning = false;
             OnAbilityStopped();
         }
