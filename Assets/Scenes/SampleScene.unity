@@ -601,6 +601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281840058}
+  - component: {fileID: 281840059}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -623,6 +624,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 275560206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281840059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281840057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5442942d9a74e4270b93b8f20ae5ed50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grab
+  state: {fileID: 815355930}
+  sheepMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &335187945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,7 +1187,7 @@ MonoBehaviour:
       m_Calls: []
   sampleFrequency: 5
   snapDistance: 50
-  brushSize: 10
+  brushSize: 5
   fadeTime: 1
   fence: {fileID: 129921072}
   mask:
@@ -1178,6 +1195,9 @@ MonoBehaviour:
     m_Bits: 128
   color: {r: 0.7490196, g: 0.6039216, b: 0.2, a: 1}
   activeState: {fileID: 335187946}
+  previewGoodColor: {r: 0, g: 1, b: 0, a: 0.72156864}
+  previewBadColor: {r: 1, g: 0, b: 0, a: 1}
+  maxDistance: 200
 --- !u!225 &732403168
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1425,10 +1445,12 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
-    - - {x: -0.42, y: 0.42}
-      - {x: 0.42, y: 0.42}
-      - {x: 0.42, y: -0.42}
-      - {x: -0.42, y: -0.42}
+    - - {x: -0.4411316, y: 0.4464276}
+      - {x: 0.20195007, y: 0.44131112}
+      - {x: 0.33940116, y: 0.44021758}
+      - {x: 0.44465354, y: 0.43938023}
+      - {x: 0.44817546, y: -0.4429039}
+      - {x: -0.4399576, y: -0.43409476}
   m_UseDelaunayMesh: 1
 --- !u!50 &1154081308
 Rigidbody2D:

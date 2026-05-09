@@ -7,6 +7,7 @@ using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
@@ -30,16 +31,22 @@ public class DrawGraphic : MaskableGraphic
     [SerializeField] private LayerMask mask;
     [SerializeField] private Color color;
     [SerializeField, PropertyInterface(typeof(IState))] private UnityEngine.Object activeState;
-    
+    [FormerlySerializedAs("previewGoodPreview")] [SerializeField] private Color previewGoodColor = Color.green;
+    [SerializeField] private Color previewBadColor = Color.red;
+    [SerializeField] private float maxDistance = 200.0f;
 
+    private bool _showPreview;
+    private GraphicPoint _currentPoint;
     private Vector2 _localRectPosition;
     private int _lastSample;
     private CanvasGroup _canvasGroup;
     private IState ActiveState => activeState as IState;
+    private bool _pointGood = true;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _currentPoint = new GraphicPoint();
         _lastSample = Time.frameCount;
         _points.Clear();
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -48,12 +55,60 @@ public class DrawGraphic : MaskableGraphic
     // Update is called once per frame
     void Update()
     {
+        if (ActiveState.Activated && _points.Count is > 0 and < MAX_POINTS + 1)
+        {
+            RectTransform canvasRect = GetComponent<RectTransform>();
+            var mousePoint = Mouse.current.position.ReadValue();
         
+            bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, mousePoint, null,
+                out _localRectPosition);
+            GraphicPoint point = new GraphicPoint
+            {
+                MousePosition = mousePoint,
+                RectPosition = _localRectPosition
+            
+            };
+            
+            
+            if (isInside)
+            {
+                _showPreview = true;
+                _currentPoint = point;
+                SetVerticesDirty();
+                    
+                
+                
+            }
+            else
+            {
+                _showPreview = false;
+            }
+            
+        }
+        else
+        {
+            _showPreview = false;
+        }
+
+        if (_showPreview)
+        {
+            var startPoint = _points[^1];
+            var endPoint = _currentPoint;
+
+            var startWorldPosition =
+                fence.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(startPoint.MousePosition));
+            var endWorldPosition =
+                fence.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(endPoint.MousePosition));
+            var worldDirection = endWorldPosition - startWorldPosition;
+            var intesection = Physics2D.Raycast(startWorldPosition + worldDirection.normalized * 0.5f, worldDirection.normalized,
+                Vector2.Distance(startWorldPosition + worldDirection.normalized * 0.5f, endWorldPosition));
+            _pointGood = !intesection.collider;
+        }
     }
 
     public void PlacePoint()
     {
-        if (!ActiveState.Activated)
+        if (!ActiveState.Activated || !_pointGood)
         {
             return;
         }
@@ -165,6 +220,21 @@ public class DrawGraphic : MaskableGraphic
         vh.AddTriangle(triangleBase + 2, triangleBase + 3, triangleBase);
     }
 
+
+    private void DrawLine(ref VertexHelper vh,GraphicPoint start, GraphicPoint end, Color32 color)
+    {
+        var line = end.RectPosition - start.RectPosition;
+        float angle = Mathf.Atan2(line.y, line.x) * Mathf.Rad2Deg;
+        var numQuads = Mathf.RoundToInt(line.magnitude / brushSize);
+        Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+        for (int i = 0; i < numQuads; i++)
+        {
+            var spawnPoint = start.RectPosition + line.normalized * (i * brushSize);
+            (Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4) = QuadVerticesAroundPoint(spawnPoint);
+            AddQuad(ref vh, color, v1, v2, v3, v4, rotation, spawnPoint);
+        }
+    }
+
     protected override void OnPopulateMesh(VertexHelper vh)
     {
 
@@ -202,10 +272,32 @@ public class DrawGraphic : MaskableGraphic
             }
            
         }
+        
+        // Update preview
 
+        if (_showPreview)
+        {
+            
+            
 
+            var startPoint = _points[^1];
+            var endPoint = _currentPoint;
 
-        //vh.FillMesh();
+       
+            if (!_pointGood)
+            {
+                DrawLine(ref vh, startPoint, endPoint, previewBadColor);
+            }
+
+            else
+            {
+                DrawLine(ref vh, startPoint, endPoint, previewGoodColor);
+            }
+            
+            
+        }
+
+        
 
     }
     

@@ -32,7 +32,20 @@ public class Fence : MonoBehaviour
             {
                 fence.SetActive(false);
             }
+
+            edgeCollider.enabled = false;
+            return;
         }
+        else if (points.Length < 2)
+        {
+            edgeCollider.enabled = false;
+        }
+        else
+        {
+            
+            edgeCollider.enabled = true;
+        }
+
         
         for (var i = 0; i < points.Length; i++)
         {
