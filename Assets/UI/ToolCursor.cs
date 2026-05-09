@@ -1,16 +1,18 @@
 using DG.Tweening.Core.Easing;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 
 
 
 public class ToolCursor : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject GrabTool, ShearTool, BreedTool, FenceTool;
-    [SerializeField]
-    private Tool tool;
+    [SerializeField] private GameObject GrabTool, ShearTool, BreedTool, FenceTool;
+    [SerializeField] private Tool tool;
+    [SerializeField] private Image Grab_Img;
+    [SerializeField] private Sprite Grab_Spr, GrabReleased_Spr;
 
     public Tool currentTool;
 
@@ -59,5 +61,11 @@ public class ToolCursor : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
 
         transform.position = mousePos;
+
+        if (currentTool == Tool.Grab)
+        {
+            Grab_Img.sprite = Mouse.current.leftButton.isPressed ? Grab_Spr : GrabReleased_Spr;
+        }
+
     }
 }
