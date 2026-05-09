@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using ISL.StateSystem.Runtime;
+using UnityEditor;
 using UnityEngine;
 
 namespace AbilityScheduler
@@ -9,6 +12,8 @@ namespace AbilityScheduler
 
         [SerializeField] private List<AbstractAbility> rootAbilites;
         [SerializeField] private GameObject actor;
+        [SerializeField] private int animatorLayer;
+        [SerializeField] private Animator animator;
 
         private AbstractAbility _currentAbility = null;
         
@@ -25,6 +30,8 @@ namespace AbilityScheduler
         {
             
             obj.Actor = actor;
+            obj.Animator = animator;
+            obj.AnimatorLayer = animatorLayer;
             obj.InitAbility();
         }
 

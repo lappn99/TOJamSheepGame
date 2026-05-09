@@ -17,6 +17,10 @@ namespace AbilityScheduler
 
         public GameObject Actor { get; set; }
         
+        public Animator Animator { get; set; }
+        
+        public int AnimatorLayer { get; set; }
+        
         public IState State => state as IState;
 
         public event EventHandler AbilityStopped;

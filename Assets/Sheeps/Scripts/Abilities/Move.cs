@@ -116,7 +116,6 @@ namespace Sheeps.Abilities
             
             base.StopAbility();
             _move = false;
-            print("Stop");
             animator.SetBool("Moving", false);
             if (_moveTween is { active: true })
             {
