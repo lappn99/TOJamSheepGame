@@ -20,6 +20,7 @@ namespace Sheeps.Abilities
         [SerializeField] private Ease movementEase = Ease.Linear;
         [SerializeField] private LayerMask obstacleMask;
         [SerializeField] private Transform castOrigin;
+        [SerializeField] private Animator animator;
 
         private bool _move;
 
@@ -47,7 +48,7 @@ namespace Sheeps.Abilities
         {
             base.StartAbility();
             StartCoroutine(nameof(MoveSheep));
-            
+            animator.SetBool("Moving", true);
 
         }
 
@@ -101,12 +102,14 @@ namespace Sheeps.Abilities
             yield return _rb.DOMove(targetPosition, moveDistance / moveSpeed).SetEase(movementEase).onComplete +=
                 StopAbility;
 
+
         }
 
         public override void StopAbility()
         {
             base.StopAbility();
             _move = false;
+            animator.SetBool("Moving", false);
         }
 
         public bool Activated

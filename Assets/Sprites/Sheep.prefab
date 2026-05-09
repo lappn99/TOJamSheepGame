@@ -101,7 +101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7958318438162229849}
   - component: {fileID: 655796844811410573}
-  - component: {fileID: 3891384869279372761}
   m_Layer: 0
   m_Name: Wool
   m_TagString: Untagged
@@ -118,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 2535191739673559884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0030999929, y: -0.009200001, z: 0}
+  m_LocalPosition: {x: -0.003099993, y: -0.009200001, z: 0}
   m_LocalScale: {x: 0.1531, y: 0.1531, z: 0.1531}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -188,42 +187,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!58 &3891384869279372761
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2535191739673559884}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.00000023841858, y: 0}
-  m_Radius: 2.2049997
 --- !u!1 &3274519722934781770
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +198,7 @@ GameObject:
   - component: {fileID: 779057163454340322}
   - component: {fileID: 7588170128157352307}
   m_Layer: 0
-  m_Name: Legs
+  m_Name: LegB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,6 +287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2143558346881756670}
+  - component: {fileID: 4460332627374974965}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -348,6 +312,28 @@ Transform:
   - {fileID: 2990148662007425137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4460332627374974965
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4323548794838698735}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c67e5e77613b3d43bf836e5f0ef78ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7158650482088377538
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +439,7 @@ GameObject:
   - component: {fileID: 1254876825442416356}
   - component: {fileID: 5642842659407335567}
   m_Layer: 0
-  m_Name: Legs
+  m_Name: LegB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -544,7 +530,7 @@ GameObject:
   - component: {fileID: 7213520996385534441}
   - component: {fileID: 6803765809778455705}
   m_Layer: 0
-  m_Name: Legs
+  m_Name: LegF1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,7 +621,7 @@ GameObject:
   - component: {fileID: 1670986585900230708}
   - component: {fileID: 3112175371602765946}
   m_Layer: 0
-  m_Name: Ears
+  m_Name: EarsL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,7 +712,7 @@ GameObject:
   - component: {fileID: 7946109427218452225}
   - component: {fileID: 458239476448215067}
   m_Layer: 0
-  m_Name: Legs
+  m_Name: LegF2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -908,7 +894,7 @@ GameObject:
   - component: {fileID: 3608447025545506995}
   - component: {fileID: 7122279021413146389}
   m_Layer: 0
-  m_Name: Ears
+  m_Name: EarsR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
