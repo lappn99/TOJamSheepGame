@@ -20,6 +20,7 @@ namespace Sheeps.Abilities
         [SerializeField] private Ease movementEase = Ease.Linear;
         [SerializeField] private LayerMask obstacleMask;
         [SerializeField] private Transform castOrigin;
+        [SerializeField] private Animator animator;
 
         private Tween _moveTween;
 
@@ -49,7 +50,7 @@ namespace Sheeps.Abilities
         {
             base.StartAbility();
             StartCoroutine(nameof(MoveSheep));
-            
+            animator.SetBool("Moving", true);
 
         }
 
@@ -107,6 +108,7 @@ namespace Sheeps.Abilities
                 _move = false;
             };
 
+
         }
 
         public override void StopAbility()
@@ -115,6 +117,7 @@ namespace Sheeps.Abilities
             base.StopAbility();
             _move = false;
             print("Stop");
+            animator.SetBool("Moving", false);
             if (_moveTween is { active: true })
             {
                 print("Stop movement");
@@ -125,6 +128,7 @@ namespace Sheeps.Abilities
         public void SetCanMove(bool move)
         {
             allowMovement = move;
+            
         }
 
         public bool Activated
