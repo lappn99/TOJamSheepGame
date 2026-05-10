@@ -5546,6 +5546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3640208930857933299}
   - component: {fileID: 7775545596143823596}
+  - component: {fileID: 3072659255881115237}
   m_Layer: 7
   m_Name: Move
   m_TagString: Untagged
@@ -5580,7 +5581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b966d843041342bb866ce9e0ef9eb8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sheeps.Abilities.Idle
-  state: {fileID: 7775545596143823596}
+  state: {fileID: 3072659255881115237}
   allowMovement: 1
   minMoveTime: 2
   baseMoveChance: 0.01
@@ -5593,6 +5594,68 @@ MonoBehaviour:
     m_Bits: 64
   castOrigin: {fileID: 3458137505394951274}
   animator: {fileID: 599853663719132305}
+--- !u!114 &3072659255881115237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2861304790972227009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9c1103f522df14893eb59cb2be1a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.GroupState
+  any: 0
+  states:
+  - {fileID: 7775545596143823596}
+  - {fileID: 9030088802455727330}
+--- !u!1 &3237341003962071922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2729594084085322380}
+  - component: {fileID: 4900299146230616901}
+  m_Layer: 7
+  m_Name: Inside Fence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2729594084085322380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237341003962071922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8958405945418834314}
+  m_Father: {fileID: 5195980685955840673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4900299146230616901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237341003962071922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31adf2e5a36fccb90b3d5878a76b4f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirtualState
+  activated: 0
 --- !u!1 &4353107645445370821
 GameObject:
   m_ObjectHideFlags: 0
@@ -5722,6 +5785,7 @@ Transform:
   - {fileID: 4924052802124643445}
   - {fileID: 9559508271507728}
   - {fileID: 7969989136568560895}
+  - {fileID: 2729594084085322380}
   m_Father: {fileID: 3458137505394951274}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4917963485323202159
@@ -5989,8 +6053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9719f8d98e8f9599040b7bae26695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Infector
-  infectChance: 0.1
-  tryInfectRate: 1
+  infectChance: 0.5
+  tryInfectRate: 0.5
 --- !u!1 &5406360900286666284
 GameObject:
   m_ObjectHideFlags: 0
@@ -6078,11 +6142,25 @@ MonoBehaviour:
   shearState: {fileID: 4100176161822809436}
   breedState: {fileID: 2051381575197718941}
   infectState: {fileID: 6692025713903613633}
+  insideFenceState: {fileID: 4900299146230616901}
   canBreedState: {fileID: 5026755944664990068}
   canBeInfectedState: {fileID: 4720852440374993530}
   canBeShavedState: {fileID: 436630778095236019}
+  isAdultState: {fileID: 1444944754260629704}
   babySheepPrefab: {fileID: 5406360900286666284}
   spawnDistance: 1
+  onSpawnNewSheep:
+    m_PersistentCalls:
+      m_Calls: []
+  onShave:
+    m_PersistentCalls:
+      m_Calls: []
+  onInfect:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &9175882352166134357
 Rigidbody2D:
   serializedVersion: 5
@@ -7197,3 +7275,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sheeps.Abilities.Lifecycle.Shaved
   state: {fileID: 4100176161822809436}
+--- !u!1 &9100699209719213377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8958405945418834314}
+  - component: {fileID: 9030088802455727330}
+  m_Layer: 7
+  m_Name: Not In Fence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8958405945418834314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100699209719213377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2729594084085322380}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9030088802455727330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100699209719213377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55688183cd10aa8459fb319bb59ff283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InvalidSymbol.StateSystem::ISL.StateSystem.Runtime.NotState
+  state: {fileID: 4900299146230616901}

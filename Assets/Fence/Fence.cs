@@ -7,7 +7,12 @@ public class Fence : MonoBehaviour
     private EdgeCollider2D edgeCollider;
    [SerializeField]private GameObject fenchPole;
 
+   [SerializeField] private PolygonCollider2D internalCollider;
+   [SerializeField] private LayerMask sheepMask;
+
    public EdgeCollider2D EdgeCollider => edgeCollider;
+
+   public PolygonCollider2D InternalCollider => internalCollider;
 
    private List<GameObject> _fences = new List<GameObject>();
     
@@ -21,6 +26,17 @@ public class Fence : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Collider2D[] CheckObjectsInside(ContactFilter2D contactFilter2D)
+    {
+        InternalCollider.enabled = true;
+        InternalCollider.points = edgeCollider.points;
+        List<Collider2D> results = new List<Collider2D>();
+        var numCollisions = Physics2D.OverlapCollider(InternalCollider, contactFilter2D, results);
+        print(numCollisions);
+        return results.ToArray();
+
     }
 
     public void UpdateFence(Vector3[] points)

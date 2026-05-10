@@ -6,6 +6,11 @@ namespace Player.Abilities
 {
     public class Breed : ToolAbility
     {
+        protected override bool SheepFilter(Sheep sheep)
+        {
+            return !sheep.IsFed && sheep.IsAdult;
+        }
+
         public override void UpdateAbility()
         {
             base.UpdateAbility();
@@ -14,6 +19,7 @@ namespace Player.Abilities
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     CurrentSheep.Breed();
+                    HasSheep = false;
                 }
             }
         }

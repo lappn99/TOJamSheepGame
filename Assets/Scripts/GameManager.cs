@@ -61,21 +61,21 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            if (Random.value <= latentInfectionChance)
+            
+            foreach (var sheep in _sheep)
             {
-                var infected = _sheep[Random.Range(0, _sheep.Count - 1)];
-
-                if (infected.Infect())
+                if (Random.value <= latentInfectionChance)
                 {
-                    if (!_firstSheepInfected)
+                    if (sheep.Infect())
                     {
-                        _firstSheepInfected = true;
-                        firstSheepInfected.Invoke(infected);
+                        if (!_firstSheepInfected)
+                        {
+                            _firstSheepInfected = true;
+                            firstSheepInfected.Invoke(sheep);
+                        }
                     }
                 }
-                
             }
-            
             yield return new WaitForSeconds(latentInfectionTryRate);
         }
     }

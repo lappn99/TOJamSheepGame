@@ -9,6 +9,7 @@ namespace Player.Abilities
     public abstract class ToolAbility : AbstractAbility
     {
         [SerializeField] private LayerMask sheepMask;
+        [SerializeField] private float checkRadius = 0.5f;
         protected bool HasSheep { get; set; }
         protected Sheep CurrentSheep { get; set; }
 
@@ -18,16 +19,17 @@ namespace Player.Abilities
         public override void UpdateAbility()
         {
             var mousePosition = Mouse.current.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            var intersects = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, sheepMask.value);
+
+            var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            
+            var intersects = Physics2D.OverlapCircleAll(worldPosition, checkRadius, sheepMask);
             
             if (!HasSheep)
             {
-                
                 if (intersects.Length > 0)
                 {
-                    var intersectingSheep = intersects.Where((hit2D => hit2D.collider.gameObject.GetComponent<Sheep>()))
-                        .Select(hit2D => hit2D.collider.gameObject.GetComponent<Sheep>());
+                    var intersectingSheep = intersects.Where((collider => collider.gameObject.GetComponent<Sheep>()))
+                        .Select(collider => collider.gameObject.GetComponent<Sheep>());
                     intersectingSheep = intersectingSheep.Where(SheepFilter);
                     var availableSheep = intersectingSheep as Sheep[] ?? intersectingSheep.ToArray();
                     if (availableSheep.Any())

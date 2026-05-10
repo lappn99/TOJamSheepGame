@@ -101,9 +101,9 @@ public class DrawGraphic : MaskableGraphic
             var endWorldPosition =
                 fence.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(endPoint.MousePosition));
             var worldDirection = endWorldPosition - startWorldPosition;
-            var intesection = Physics2D.Raycast(startWorldPosition + worldDirection.normalized * 0.5f, worldDirection.normalized,
+            var intersection = Physics2D.Raycast(startWorldPosition + worldDirection.normalized * 0.5f, worldDirection.normalized,
                 Vector2.Distance(startWorldPosition + worldDirection.normalized * 0.5f, endWorldPosition), obstacleMask.value);
-            _pointGood = !intesection.collider;
+            _pointGood = !intersection.collider;
         }
 
         if (Keyboard.current.escapeKey.wasReleasedThisFrame || (!ActiveState.Activated && _points.Count > 0))
@@ -145,10 +145,15 @@ public class DrawGraphic : MaskableGraphic
                     ContactFilter2D contactFilter2D = new ContactFilter2D();
                     contactFilter2D.layerMask = mask;
                     contactFilter2D.useLayerMask = true;
+                    var overlaps = fence.CheckObjectsInside(contactFilter2D);
+                    foreach (var overlap in overlaps)
+                    {
+                        if (overlap.gameObject.TryGetComponent(out Sheep sheep))
+                        {
+                            sheep.InsideFence();
+                        }
+                    }
 
-                    List<Collider2D> overlaps = new List<Collider2D>();
-                    Physics2D.OverlapArea(fence.EdgeCollider.bounds.min, fence.EdgeCollider.bounds.max, contactFilter2D,
-                        overlaps);
                     _canvasGroup.DOFade(0.0f, fadeTime).onComplete += () =>
                     {
                         _points.Clear();

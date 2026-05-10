@@ -7,7 +7,7 @@ public class Shear : ToolAbility
 {
     protected override bool SheepFilter(Sheep sheep)
     {
-        return !sheep.IsShaved;
+        return !sheep.IsShaved && sheep.IsAdult;
 
     }
 
@@ -20,6 +20,7 @@ public class Shear : ToolAbility
             if (Mouse.current.leftButton.isPressed)
             {
                 CurrentSheep.Shear();
+                HasSheep = false;
             }
         }
         
