@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using ISL.StateSystem.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,6 +26,11 @@ public class Sheep : MonoBehaviour
     [SerializeField] private GameObject babySheepPrefab;
 
     [SerializeField] private float spawnDistance = 1.0f;
+
+    [SerializeField] public UnityEvent<GameObject> onSpawnNewSheep;
+    [SerializeField] public UnityEvent onShave;
+    [SerializeField] public UnityEvent onInfect;
+    [SerializeField] public UnityEvent onDestroyed;
 
     private Rigidbody2D _rb;
     
@@ -66,6 +72,7 @@ public class Sheep : MonoBehaviour
         {
             
             shearState.activated = true;
+            onShave.Invoke();
         }
     }
 
@@ -75,7 +82,8 @@ public class Sheep : MonoBehaviour
         {
             return;
         }
-
+        
+        
         breedState.activated = true;
         var babySheep = Instantiate(babySheepPrefab);
         var spawnAngle = Random.Range(0.0f, 360.0f);
@@ -85,17 +93,27 @@ public class Sheep : MonoBehaviour
         spawnRotation.Normalize();
 
         babySheep.transform.position = transform.position + spawnRotation * spawnDistance;
-
+        onSpawnNewSheep.Invoke(babySheep);
 
 
     }
 
-    public void Infect()
+    private void OnDestroy()
+    {
+        onDestroyed.Invoke();
+        DOTween.Kill(this);
+    }
+
+    public bool Infect()
     {
         if (CanBeInfectedState.Activated)
         {
             
             infectState.activated = true;
+            onInfect.Invoke();
+            return true;
         }
+
+        return false;
     }
 }
