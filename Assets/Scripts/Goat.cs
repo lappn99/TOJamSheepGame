@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Goat : MonoBehaviour
 {
     public static Goat Instance;
-    public static UnityAction FirstInfected;
+    public static UnityAction FirstInfected, CoatReady;
     public int WoolCount, WoolMax, WoolCountFirstInfected;
     public Renderer Coat1, Coat2;
     private void Awake()
@@ -36,6 +36,11 @@ public class Goat : MonoBehaviour
         if (WoolCount == WoolCountFirstInfected)
         {
             FirstInfected.Invoke();
+        }
+
+        if (WoolCount == WoolMax)
+        {
+            CoatReady.Invoke();
         }
     }
 }

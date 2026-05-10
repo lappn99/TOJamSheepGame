@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
 
     [FormerlySerializedAs("firstInfectedChance")] [SerializeField] private float latentInfectionChance = 0.05f;
     [FormerlySerializedAs("firstInfectedTryRate")] [SerializeField] private float latentInfectionTryRate = 1.0f;
-    [SerializeField] private UnityEvent<Sheep> firstSheepInfected;
+    [SerializeField] private UnityAction<Sheep> firstSheepInfected;
     [SerializeField] private Volume PPVolume;
     [SerializeField] private Image noiseVignette;
+    [SerializeField] private Animator BackgroundAnimator;
 
     public CinemachineCamera cmCamera;
     private CinemachineBasicMultiChannelPerlin noiseCamera;
@@ -55,14 +56,17 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         Goat.FirstInfected += StartLatentInfection;
-
+        firstSheepInfected += StartFirstInfection;
+        Goat.CoatReady += CoatReady;
     }
 
     private void OnDisable()
     {
         Goat.FirstInfected -= StartLatentInfection;
-
+        firstSheepInfected -= StartFirstInfection;
+        Goat.CoatReady -= CoatReady;
     }
+
 
     void StartLatentInfection()
     {
@@ -71,7 +75,6 @@ public class GameManager : MonoBehaviour
         firstSheepInfected.Invoke(first);
         _firstSheepInfected = true;
         StartCoroutine(LatentInfection());
-
     }
 
     // Update is called once per frame
@@ -142,15 +145,22 @@ public class GameManager : MonoBehaviour
         noiseCamera.AmplitudeGain = 0f; // On l'arrête
     }
 
+
+    void StartFirstInfection(Sheep infected)
+    {
+        StartCoroutine(FirsInfectedEffect(infected.transform));
+    }
+
     private IEnumerator FirsInfectedEffect(Transform focusTransform)
     {
+        yield return new WaitForSeconds(5f);
+
         float orthoSave = cmCamera.Lens.OrthographicSize;
+        Vector3 cmPosSave = cmCamera.transform.position;
         float elapsed = 0;
         float duration = 0.3f;
 
-        Time.timeScale = 0;
-
-        cmCamera.LookAt = focusTransform;
+        cmCamera.Follow = focusTransform;
 
         while (elapsed < duration)
         {
@@ -159,25 +169,57 @@ public class GameManager : MonoBehaviour
 
             float smoothPercent = Mathf.SmoothStep(0, 1, percent);
 
-            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 20, smoothPercent);
+            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 1.5f, smoothPercent);
 
             yield return null; 
         }
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(3f);
 
-        while (elapsed > duration)
+        cmCamera.Follow = null;
+        cmCamera.transform.DOMove(cmPosSave, duration);
+
+        while (elapsed > 0)
         {
+
             elapsed -= Time.deltaTime;
             float percent = elapsed / duration;
 
             float smoothPercent = Mathf.SmoothStep(0, 1, percent);
 
-            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 20, smoothPercent);
+            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 1.5f, smoothPercent);
 
             yield return null; 
         }
+        BackgroundAnimator.SetTrigger("Infected");
 
-            cmCamera.LookAt = null;
+        Time.timeScale = 1;
 
+    }
+
+    private void CoatReady()
+    {
+        StartCoroutine(GoatFinalAnimation());
+    }
+
+    private IEnumerator GoatFinalAnimation()
+    {
+        float orthoSave = cmCamera.Lens.OrthographicSize;
+        float elapsed = 0;
+        float duration = 0.3f;
+
+        cmCamera.Follow = Goat.Instance.transform;
+        cmCamera.GetComponent<CinemachineFollow>().FollowOffset += new Vector3(0, 1.9f, -10f);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float percent = elapsed / duration;
+
+            float smoothPercent = Mathf.SmoothStep(0, 1, percent);
+
+            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 3.5f, smoothPercent);
+
+            yield return null;
+        }
     }
 }

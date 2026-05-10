@@ -427,14 +427,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
-      propertyPath: m_Colors.m_NormalColor.a
-      value: 0.18431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1798406717}
@@ -586,10 +578,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9136410177561021646, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 2059576387, guid: a65e630cd87d14141b27127a2a37ba59, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -792,6 +780,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &510430504 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4504012346724182653, guid: 3641e35260e57bb43acec957af31f3b8, type: 3}
+  m_PrefabInstance: {fileID: 1734827542}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +892,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.38
+  orthographic size: 7.7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1090,7 +1083,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 8.38
+    OrthographicSize: 7.7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1153,7 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
-    BindingMode: 5
+    BindingMode: 3
     PositionDamping: {x: 1, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
@@ -1990,23 +1983,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   latentInfectionChance: 0.01
   latentInfectionTryRate: 3
-  firstSheepInfected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1798406717}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   PPVolume: {fileID: 105304819}
   noiseVignette: {fileID: 701018579}
+  BackgroundAnimator: {fileID: 510430504}
   cmCamera: {fileID: 694838423}
   infectedCount: 0
 --- !u!4 &1798406718

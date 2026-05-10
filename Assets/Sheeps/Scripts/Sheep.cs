@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using ISL.StateSystem.Runtime;
 using UnityEngine;
@@ -108,6 +109,16 @@ public class Sheep : MonoBehaviour
 
     }
 
+    public void KillSheep()
+    {
+        GetComponent<Animator>().SetTrigger("Kill");
+    }
+
+    public void DestroySheep()
+    {
+        Destroy(gameObject);
+    }
+
     public void InsideFence()
     {
         insideFenceState.Activated = true;
@@ -115,7 +126,7 @@ public class Sheep : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(infectState.activated)
+        if(GetComponent<Animator>().GetInteger("State") == 2)
             GameManager.Instance.UpdateInfected(-1);
         onDestroyed.Invoke();
         DOTween.Kill(this);

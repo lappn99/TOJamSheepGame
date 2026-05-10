@@ -162,7 +162,9 @@ public class DrawGraphic : MaskableGraphic
                         UpdateFencePoints();
                         foreach (var overlap in overlaps)
                         {
-                            Destroy(overlap.gameObject);
+
+                            overlap.GetComponent<Sheep>().KillSheep();
+
                         }
                         
                         
