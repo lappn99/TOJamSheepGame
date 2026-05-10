@@ -64,7 +64,6 @@ public class Sheep : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         GameManager.Instance.AddSheep(this);
-        print(shearState.Activated);
     }
 
     // Update is called once per frame

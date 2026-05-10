@@ -6054,8 +6054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9719f8d98e8f9599040b7bae26695a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Infector
-  infectChance: 0.5
-  tryInfectRate: 0.5
+  infectChance: 0.15
+  tryInfectRate: 1
 --- !u!1 &5406360900286666284
 GameObject:
   m_ObjectHideFlags: 0
