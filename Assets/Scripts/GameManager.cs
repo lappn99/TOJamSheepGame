@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Volume PPVolume;
     [SerializeField] private Image noiseVignette;
     [SerializeField] private Animator BackgroundAnimator;
+    [SerializeField] private CanvasGroup EndGamePanel;
+
 
     public CinemachineCamera cmCamera;
     private CinemachineBasicMultiChannelPerlin noiseCamera;
@@ -221,5 +223,15 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+
+        //Sequence loop shake scale Goat
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(Goat.Instance.transform.DOShakeScale(1f,0.5f));
+        mySequence.AppendInterval(2f);
+        mySequence.SetLoops(-1, LoopType.Restart);
+
+        Goat.Instance.ActiveFlares();
+
+        EndGamePanel.DOFade(1,0.3f);
     }
 }

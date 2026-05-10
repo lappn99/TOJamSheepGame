@@ -8,6 +8,7 @@ public class Goat : MonoBehaviour
     public static UnityAction FirstInfected, CoatReady;
     public int WoolCount, WoolMax, WoolCountFirstInfected;
     public Renderer Coat1, Coat2;
+    public SpriteRenderer Flare1, Flare2;
     private void Awake()
     {
         if(Instance == null)
@@ -42,5 +43,12 @@ public class Goat : MonoBehaviour
         {
             CoatReady.Invoke();
         }
+    }
+
+    public void ActiveFlares()
+    {
+        Flare1.DOColor(new Color(1, 1, 1, 1), 0.3f);
+        Flare2.DOColor(new Color(1, 1, 1, 1), 0.3f);
+
     }
 }
