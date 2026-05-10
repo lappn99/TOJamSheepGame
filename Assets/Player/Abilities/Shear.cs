@@ -15,9 +15,9 @@ public class Shear : ToolAbility
     {
         base.UpdateAbility();
 
-        if (HasSheep)
+        if (HasSheep && IsAbilityRunning)
         {
-            if (Mouse.current.leftButton.isPressed)
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 CurrentSheep.Shear();
                 HasSheep = false;
@@ -25,4 +25,6 @@ public class Shear : ToolAbility
         }
         
     }
+    
+    
 }

@@ -35,7 +35,7 @@ public class DrawGraphic : MaskableGraphic
     [SerializeField] private Color previewBadColor = Color.red;
     [SerializeField] private float maxDistance = 200.0f;
     [SerializeField] private LayerMask obstacleMask;
-
+    private bool _completingFence = false;
     private bool _showPreview;
     private GraphicPoint _currentPoint;
     private Vector2 _localRectPosition;
@@ -43,6 +43,7 @@ public class DrawGraphic : MaskableGraphic
     private CanvasGroup _canvasGroup;
     private IState ActiveState => activeState as IState;
     private bool _pointGood = true;
+    private bool _fenceComplete;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,7 +57,7 @@ public class DrawGraphic : MaskableGraphic
     // Update is called once per frame
     void Update()
     {
-        if (ActiveState.Activated && _points.Count is > 0 and < MAX_POINTS + 1)
+        if (ActiveState.Activated && _points.Count  > 0 && !_completingFence)
         {
             RectTransform canvasRect = GetComponent<RectTransform>();
             var mousePoint = Mouse.current.position.ReadValue();
@@ -117,7 +118,7 @@ public class DrawGraphic : MaskableGraphic
 
     public void PlacePoint()
     {
-        if (!ActiveState.Activated || !_pointGood)
+        if (!ActiveState.Activated || !_pointGood || _completingFence)
         {
             return;
         }
@@ -134,13 +135,12 @@ public class DrawGraphic : MaskableGraphic
         };
         if (isInside)
         {
-            if (_points.Count >= MAX_POINTS)
+            if (_points.Count > 1)
             {
                 if (Vector2.Distance(_localRectPosition, _points[0].RectPosition) <= snapDistance)
                 {
+                    _completingFence = true;
                     _points.Add(_points[0]);
-                    
-                    
                     UpdateFencePoints();
                     ContactFilter2D contactFilter2D = new ContactFilter2D();
                     contactFilter2D.layerMask = mask;
@@ -157,7 +157,7 @@ public class DrawGraphic : MaskableGraphic
                     _canvasGroup.DOFade(0.0f, fadeTime).onComplete += () =>
                     {
                         _points.Clear();
-                        SetVerticesDirty();
+                        //SetVerticesDirty();
                         _canvasGroup.alpha = 1.0f;
                         UpdateFencePoints();
                         foreach (var overlap in overlaps)
@@ -166,24 +166,26 @@ public class DrawGraphic : MaskableGraphic
                             overlap.GetComponent<Sheep>().KillSheep();
 
                         }
+
+                        _completingFence = false;
+                        SetVerticesDirty();
                         
                         
                     };
                 }
                 else
                 {
-                    _points.Clear();
+                    
+                    _points.Add(point);
                     UpdateFencePoints();
                 }
             }
             else
             {
+                _fenceComplete = false;
                 _points.Add(point);
                 UpdateFencePoints();
-               
             }
-            
-            
             SetVerticesDirty();
         }
     }
@@ -291,7 +293,7 @@ public class DrawGraphic : MaskableGraphic
         
         // Update preview
 
-        if (_showPreview)
+        if (_showPreview && _points.Count > 0 && !_completingFence)
         {
             
             

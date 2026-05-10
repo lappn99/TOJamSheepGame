@@ -52,12 +52,19 @@ public class Sheep : MonoBehaviour
     
     
     public bool IsAdult => IsAdultState.Activated;
-    
+
+
+    private void OnEnable()
+    {
+        shearState.Activated = false;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         GameManager.Instance.AddSheep(this);
+        print(shearState.Activated);
     }
 
     // Update is called once per frame
