@@ -105,6 +105,14 @@ public class DrawGraphic : MaskableGraphic
                 Vector2.Distance(startWorldPosition + worldDirection.normalized * 0.5f, endWorldPosition), obstacleMask.value);
             _pointGood = !intesection.collider;
         }
+
+        if (Keyboard.current.escapeKey.wasReleasedThisFrame || (!ActiveState.Activated && _points.Count > 0))
+        {
+            _points.Clear();
+            UpdateFencePoints();
+            _showPreview = false;
+            _pointGood = true;
+        }
     }
 
     public void PlacePoint()
@@ -280,7 +288,7 @@ public class DrawGraphic : MaskableGraphic
         {
             
             
-
+            
             var startPoint = _points[^1];
             var endPoint = _currentPoint;
 

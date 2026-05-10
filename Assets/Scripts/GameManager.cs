@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,29 +15,29 @@ public class GameManager : MonoBehaviour
     [FormerlySerializedAs("firstInfectedTryRate")] [SerializeField] private float latentInfectionTryRate = 1.0f;
     [SerializeField] private UnityEvent<Sheep> firstSheepInfected;
     
-    private List<Sheep> _sheep;
+    private List<Sheep> _sheep = new List<Sheep>();
 
     private bool _firstSheepInfected;
-    
+
+    private static GameManager _instance;
+
+    public static GameManager Instance => _instance;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
-        _sheep = FindObjectsByType<Sheep>().ToList();
-        foreach (var sheep in _sheep)
-        {
-            sheep.onDestroyed.AddListener((() =>
-            {
-                _sheep.Remove(sheep);
-            }));
-            sheep.onSpawnNewSheep.AddListener((arg0 =>
-            {
-                var sheep = arg0.GetComponent<Sheep>();
-                _sheep.Add(sheep);
-                sheep.onDestroyed.AddListener((() =>
-                {
-                    _sheep.Remove(sheep);
-                }));
-            }));
-        }
+        
 
         StartCoroutine(LatentInfection());
     }
@@ -44,6 +46,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddSheep(Sheep sheep)
+    {
+        _sheep.Add(sheep);
+        sheep.onDestroyed.AddListener((() =>
+        {
+            _sheep.Remove(sheep);
+        }));
     }
 
     private IEnumerator LatentInfection()

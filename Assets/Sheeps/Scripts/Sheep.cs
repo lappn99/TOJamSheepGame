@@ -48,6 +48,7 @@ public class Sheep : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        GameManager.Instance.AddSheep(this);
     }
 
     // Update is called once per frame
