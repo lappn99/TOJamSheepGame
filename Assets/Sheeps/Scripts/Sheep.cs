@@ -132,7 +132,7 @@ public class Sheep : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(GetComponent<Animator>().GetInteger("State") == 2)
+        if(infectState.activated)
             GameManager.Instance.UpdateInfected(-1);
         onDestroyed.Invoke();
         DOTween.Kill(this);
