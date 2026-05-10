@@ -426,6 +426,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+      propertyPath: m_Colors.m_NormalColor.a
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 327156343126094713, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1798406717}
     - target: {fileID: 2497561642727639092, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -441,10 +453,6 @@ PrefabInstance:
     - target: {fileID: 2497561642727639092, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848109296417911055, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5427609370259258163, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
       propertyPath: m_Name
@@ -578,6 +586,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9136410177561021646, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2059576387, guid: a65e630cd87d14141b27127a2a37ba59, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1044,6 +1056,8 @@ GameObject:
   m_Component:
   - component: {fileID: 694838424}
   - component: {fileID: 694838423}
+  - component: {fileID: 694838426}
+  - component: {fileID: 694838425}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -1109,6 +1123,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694838425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694838422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 5
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &694838426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694838422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 5
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 0, z: -10}
+--- !u!114 &701018579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6747206270460288902, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+  m_PrefabInstance: {fileID: 274494233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &732403161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,10 +1802,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 6692025713903613633, guid: d54bfa08eed60fd89ab17bca662e2307, type: 3}
-      propertyPath: activated
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1935,8 +1992,22 @@ MonoBehaviour:
   latentInfectionTryRate: 3
   firstSheepInfected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798406717}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   PPVolume: {fileID: 105304819}
+  noiseVignette: {fileID: 701018579}
+  cmCamera: {fileID: 694838423}
   infectedCount: 0
 --- !u!4 &1798406718
 Transform:

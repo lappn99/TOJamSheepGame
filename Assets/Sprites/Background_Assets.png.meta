@@ -134,7 +134,7 @@ TextureImporter:
         width: 244
         height: 111
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,11 +147,143 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Background_Assets_1
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1807
+        width: 524
+        height: 237
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45e2bf20f91b8ac478136be0c57d6bd0
+      internalID: 733232484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_2
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 1813
+        width: 553
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4afbec9ba942c1149aca85c867a7c99f
+      internalID: 688775077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 1607
+        width: 1171
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226a9da62ec0e4941bb5c0f7697828d5
+      internalID: -1434943709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_4
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1020
+        width: 1259
+        height: 563
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1c9acba47fb18e43a603c3993d44be2
+      internalID: -1536925076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 476
+        width: 1289
+        height: 508
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ea60813e163afc4eb55943a90d927de
+      internalID: 1861852905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1368
+        height: 450
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3b608380846a484fb858d26b34a7f96
+      internalID: 1276141577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7b2310628d5dd3142a8d05da8f690771
     internalID: 0
     vertices: []
     indices: 
@@ -162,6 +294,12 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Background_Assets_0: -2768090117665513897
+      Background_Assets_1: 733232484
+      Background_Assets_2: 688775077
+      Background_Assets_3: -1434943709
+      Background_Assets_4: -1536925076
+      Background_Assets_5: 1861852905
+      Background_Assets_6: 1276141577
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

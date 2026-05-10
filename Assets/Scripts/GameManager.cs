@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using Unity.Cinemachine;
+using Unity.Mathematics;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +21,11 @@ public class GameManager : MonoBehaviour
     [FormerlySerializedAs("firstInfectedTryRate")] [SerializeField] private float latentInfectionTryRate = 1.0f;
     [SerializeField] private UnityEvent<Sheep> firstSheepInfected;
     [SerializeField] private Volume PPVolume;
-    
+    [SerializeField] private Image noiseVignette;
+
+    public CinemachineCamera cmCamera;
+    private CinemachineBasicMultiChannelPerlin noiseCamera;
+
     private List<Sheep> _sheep = new List<Sheep>();
 
     private bool _firstSheepInfected;
@@ -30,6 +39,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         PPVolume.weight = 0f;
+        noiseVignette.enabled = false;
+        noiseCamera = cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
 
         if (_instance == null)
         {
@@ -59,8 +70,8 @@ public class GameManager : MonoBehaviour
         first.Infect();
         firstSheepInfected.Invoke(first);
         _firstSheepInfected = true;
-
         StartCoroutine(LatentInfection());
+
     }
 
     // Update is called once per frame
@@ -84,10 +95,13 @@ public class GameManager : MonoBehaviour
         if(infectedCount <= 0)
         {
             PPVolume.weight = 0f;
+            noiseVignette.enabled = false;
         }
         else
         {
             PPVolume.weight = 1f;
+            StartCoroutine(ShakeCamera(5, 0.5f));
+            noiseVignette.enabled = true;
         }
     }
 
@@ -114,5 +128,56 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(latentInfectionTryRate);
         }
+    }
+
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator ShakeCamera(float intensity, float duration)
+    {
+        noiseCamera.AmplitudeGain = intensity; // On active le tremblement
+        yield return new WaitForSeconds(duration);
+        noiseCamera.AmplitudeGain = 0f; // On l'arrête
+    }
+
+    private IEnumerator FirsInfectedEffect(Transform focusTransform)
+    {
+        float orthoSave = cmCamera.Lens.OrthographicSize;
+        float elapsed = 0;
+        float duration = 0.3f;
+
+        Time.timeScale = 0;
+
+        cmCamera.LookAt = focusTransform;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float percent = elapsed / duration;
+
+            float smoothPercent = Mathf.SmoothStep(0, 1, percent);
+
+            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 20, smoothPercent);
+
+            yield return null; 
+        }
+            yield return new WaitForSeconds(4f);
+
+        while (elapsed > duration)
+        {
+            elapsed -= Time.deltaTime;
+            float percent = elapsed / duration;
+
+            float smoothPercent = Mathf.SmoothStep(0, 1, percent);
+
+            cmCamera.Lens.OrthographicSize = Mathf.Lerp(orthoSave, 20, smoothPercent);
+
+            yield return null; 
+        }
+
+            cmCamera.LookAt = null;
+
     }
 }
