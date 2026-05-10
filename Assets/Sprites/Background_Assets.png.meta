@@ -288,7 +288,7 @@ TextureImporter:
         width: 525
         height: 1518
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -297,6 +297,50 @@ TextureImporter:
       bones: []
       spriteID: 9518c276052a17d4cb58c89847b04c80
       internalID: -1391743619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_8
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 1830
+        width: 604
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01ed28462db825141900fb7cd1f95c64
+      internalID: -552500078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background_Assets_9
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 1622
+        width: 694
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b24900f01edbae343a2f070f2605ffc0
+      internalID: 1963152563
       vertices: []
       indices: 
       edges: []
@@ -323,6 +367,8 @@ TextureImporter:
       Background_Assets_5: 1861852905
       Background_Assets_6: 1276141577
       Background_Assets_7: -1391743619
+      Background_Assets_8: -552500078
+      Background_Assets_9: 1963152563
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

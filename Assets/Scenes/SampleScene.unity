@@ -1986,6 +1986,7 @@ MonoBehaviour:
   PPVolume: {fileID: 105304819}
   noiseVignette: {fileID: 701018579}
   BackgroundAnimator: {fileID: 510430504}
+  EndGamePanel: {fileID: 2136897244}
   cmCamera: {fileID: 694838423}
   infectedCount: 0
 --- !u!4 &1798406718
@@ -2166,6 +2167,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d54bfa08eed60fd89ab17bca662e2307, type: 3}
+--- !u!225 &2136897244 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 6466377781060292888, guid: 36a25221c923fa94387554eb4734e3bf, type: 3}
+  m_PrefabInstance: {fileID: 274494233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6519248993430153874
 PrefabInstance:
   m_ObjectHideFlags: 0
