@@ -23,6 +23,11 @@ public class Goat : MonoBehaviour
     public void AddWool(int add = 1)
     {
         WoolCount+= add;
+        if(WoolCount > WoolMax)
+        {
+            return;
+        }
+
         Coat1.material.DOKill(true);
         Coat1.material.DOFloat(1, "_Blink", 0.15f).SetLoops(2,LoopType.Yoyo);
         Coat1.material.SetFloat("_Dithering", (float)WoolCount / WoolMax);
@@ -32,7 +37,7 @@ public class Goat : MonoBehaviour
         Coat2.material.SetFloat("_Dithering", (float)WoolCount / WoolMax);
 
         transform.DOKill(true);
-        transform.DOScale(1.5f, 0.15f).SetLoops(2,LoopType.Yoyo);
+        transform.DOScale(1.25f, 0.15f).SetLoops(2,LoopType.Yoyo);
 
         if (WoolCount == WoolCountFirstInfected)
         {
