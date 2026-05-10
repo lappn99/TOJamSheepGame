@@ -9,6 +9,8 @@ public class Infected : AbstractAbility
     {
         base.StartAbility();
         Animator.SetInteger("State", 2);
+        GameManager.Instance.UpdateInfected(1);
+
     }
 
     public override void UpdateAbility()

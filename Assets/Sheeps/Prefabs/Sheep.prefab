@@ -6326,6 +6326,7 @@ GameObject:
   - component: {fileID: 4387999821920391413}
   - component: {fileID: 4100176161822809436}
   - component: {fileID: 5764160073303692665}
+  - component: {fileID: 4329264543643175701}
   m_Layer: 7
   m_Name: Shaved
   m_TagString: Untagged
@@ -6391,12 +6392,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4329264543643175701}
+        m_TargetAssemblyTypeName: InstantiateObject, Assembly-CSharp
+        m_MethodName: Instantiate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeactivated:
     m_PersistentCalls:
       m_Calls: []
   checkOnStart: 0
   checkOnEnable: 0
   onlyCheckOnce: 0
+--- !u!114 &4329264543643175701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787561160079242266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbffacdf5c3bba146856560596c36a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InstantiateObject
+  GO_ToInstantiate: {fileID: 1661130693351499921, guid: e35b2f0b61c69754dba44f709a52a708, type: 3}
 --- !u!1 &5790323383896573013
 GameObject:
   m_ObjectHideFlags: 0

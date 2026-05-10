@@ -35,10 +35,13 @@ public class Grab : AbstractAbility
             {
                 var position = Camera.main.ScreenToWorldPoint(mousePosition);
                 _currentSheep.RigidBody.MovePosition(position);
+                _currentSheep.GetComponent<Animator>().SetBool("Grabbed", true);
             }
 
             else if (!intersects.collider)
             {
+                _currentSheep.GetComponent<Animator>().SetBool("Grabbed", false);
+
                 _hasSheep = false;
             }
             

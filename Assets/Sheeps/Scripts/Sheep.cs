@@ -89,6 +89,7 @@ public class Sheep : MonoBehaviour
     {
         if (!CanBreedState.Activated)
         {
+            GetComponent<Animator>().SetTrigger("NoBreeding");
             return;
         }
         
@@ -114,15 +115,16 @@ public class Sheep : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(infectState.activated)
+            GameManager.Instance.UpdateInfected(-1);
         onDestroyed.Invoke();
         DOTween.Kill(this);
     }
 
     public bool Infect()
     {
-        if (CanBeInfectedState.Activated)
+        if (CanBeInfectedState.Activated && !infectState.activated)
         {
-            
             infectState.activated = true;
             onInfect.Invoke();
             return true;

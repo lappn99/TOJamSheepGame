@@ -561,6 +561,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sheep_Spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 1906
+        width: 230
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50c9b06057fb13438081b480cd84ae0
+      internalID: 439939013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -588,6 +610,7 @@ TextureImporter:
       Sheep_Spritesheet_16: -1117194314
       Sheep_Spritesheet_17: 1081483012
       Sheep_Spritesheet_18: -372224419
+      Sheep_Spritesheet_19: 439939013
       Sheep_Spritesheet_2: -3392848610080769739
       Sheep_Spritesheet_3: -1756880547637555173
       Sheep_Spritesheet_4: -914775693401210853
